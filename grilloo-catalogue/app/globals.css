@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+/*
+ * Jetons de design des 3 orientations. Préfixes : ga- (Galerie), si- (Signal), pl- (Plan).
+ * Les polices sont chargées par next/font dans le layout de chaque orientation, qui expose
+ * les variables --font-fraunces, --font-inter, --font-archivo, --font-geist, --font-geist-mono.
+ */
+@theme inline {
+  /* Marque */
+  --color-brand: #49B5BF;
+  --color-brand-hi: #1FB8CC;
+  --color-brand-deep: #0D5560;
+
+  /* A — Galerie (minimaliste / luxe) */
+  --color-ga-paper: #FAF9F6;
+  --color-ga-ivory: #F1EEE8;
+  --color-ga-stone: #8A867E;
+  --color-ga-line: #E4E0D8;
+  --color-ga-ink: #141414;
+  --font-ga-display: var(--font-fraunces);
+  --font-ga-sans: var(--font-inter);
+
+  /* B — Signal (audacieux / bold) */
+  --color-si-white: #FFFFFF;
+  --color-si-cyan: #1FB8CC;
+  --color-si-cyan-soft: #D9F3F6;
+  --color-si-ink: #0A0A0A;
+  --color-si-grey: #6B6B6B;
+  --color-si-line: #E8E8E8;
+  --color-si-yellow: #FFD23F;
+  --font-si: var(--font-archivo);
+
+  /* C — Plan (élégance technique / architecturale) */
+  --color-pl-white: #FFFFFF;
+  --color-pl-paper: #F6F8F8;
+  --color-pl-line: #DDE5E6;
+  --color-pl-grid: #EEF2F3;
+  --color-pl-teal: #0D5560;
+  --color-pl-cyan: #49B5BF;
+  --color-pl-grey: #8B999C;
+  --color-pl-ink: #12262A;
+  --font-pl-sans: var(--font-geist);
+  --font-pl-mono: var(--font-geist-mono);
+}
+
+:root {
+  --font-fraunces: 'Fraunces Variable', Georgia, serif;
+  --font-inter: 'Inter Variable', system-ui, sans-serif;
+  --font-archivo: 'Archivo Variable', 'Arial Narrow', sans-serif;
+  --font-geist: 'Geist Variable', system-ui, sans-serif;
+  --font-geist-mono: 'Geist Mono Variable', ui-monospace, monospace;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: #fff; color: #141414; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+img { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}

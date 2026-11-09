@@ -1,0 +1,48 @@
+/* Direction B — modernisation globale (chargée en dernier sur toutes les pages).
+   Même structure : verre plus profond, bordures lumineuses, grain subtil, rayons et survols raffinés. */
+body { -webkit-font-smoothing: antialiased; background: radial-gradient(120% 60% at 50% 0%, #07161C 0%, var(--night) 60%) fixed; }
+body::after { content: ''; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: .045; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+::selection { background: var(--cyan); color: #04161B; }
+
+/* header : pilule de verre plus nette */
+.hd.is-scrolled { background: rgba(5, 14, 18, .6); box-shadow: 0 1px 0 rgba(63, 211, 230, .12); }
+.hd__nav { background: rgba(12, 30, 38, .45); border-color: rgba(150, 205, 215, .2); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06); }
+.hd__nav a[aria-current] { background: rgba(63, 211, 230, .14); color: var(--cyan); }
+
+/* boutons : reflet et halo */
+.btn { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08); }
+.btn--solid { box-shadow: 0 10px 30px -10px rgba(63, 211, 230, .6), inset 0 1px 0 rgba(255, 255, 255, .5); }
+.btn--solid:hover { box-shadow: 0 16px 40px -10px rgba(63, 211, 230, .8), inset 0 1px 0 rgba(255, 255, 255, .5); }
+
+/* surfaces de verre avec bordure dégradée */
+.glass, .pass__card, .tile, .fam, .abv__c, .bnp__more a, .bab__list li, .robo__plan, .sects__view {
+  position: relative; border-color: transparent !important;
+  background-clip: padding-box; }
+.glass::before, .pass__card::before, .tile::before, .fam::before, .abv__c::before, .bnp__more a::before, .bab__list li::before, .robo__plan::before, .sects__view::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 3;
+  background: linear-gradient(140deg, rgba(63, 211, 230, .45), rgba(150, 205, 215, .08) 35%, rgba(150, 205, 215, .06) 65%, rgba(63, 211, 230, .3));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+.fam::before { top: 0; height: auto; filter: none; }
+.fam { border-radius: 32px; }
+.tile { border-radius: 26px; }
+.tile:hover, .fam:hover { box-shadow: 0 40px 80px -40px rgba(63, 211, 230, .35); }
+.glass { border-radius: 30px; backdrop-filter: blur(10px); }
+.pass__card { border-radius: 28px; }
+
+/* typo d'affichage : contraste et respiration */
+.disp { text-wrap: balance; }
+.kick { letter-spacing: .18em; }
+.lead { text-wrap: pretty; }
+
+/* chips et listes */
+.chips a, .chips button { backdrop-filter: blur(8px); }
+.sects__list button { border-radius: 14px; padding-left: 14px; padding-right: 14px; transition: color .35s, background .35s; }
+.sects__list button[aria-selected='true'] { background: rgba(63, 211, 230, .06); }
+
+/* pied de page */
+.ft { background: linear-gradient(180deg, var(--night), #030A0D); }
+.ft__soc a:hover { box-shadow: 0 0 20px -4px var(--cyan); }
+
+/* séparateur raclette plus lumineux */
+.squeegee path.rim { stroke-width: 2; }

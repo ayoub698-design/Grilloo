@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRILLOO — Trois directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Big+Shoulders+Display:wght@800&family=Lexend:wght@500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg: #F4F7F7; --fg: #0F1D21; --mute: #5F7479; --line: #D7E1E3; --cyan: #08707C; --card: #fff; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg: #0B1417; --fg: #E6F0F2; --mute: #93A9AE; --line: #22343A; --cyan: #49B5BF; --card: #111E22; } }
+  :root[data-theme="dark"] { --bg: #0B1417; --fg: #E6F0F2; --mute: #93A9AE; --line: #22343A; --cyan: #49B5BF; --card: #111E22; }
+  * { box-sizing: border-box; } body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 'Archivo', system-ui, sans-serif; }
+  .w { max-width: 1180px; margin: 0 auto; padding: 56px max(16px, 4vw) 96px; }
+  header { display: flex; flex-wrap: wrap; gap: 24px; align-items: end; justify-content: space-between; padding-bottom: 32px; border-bottom: 1px solid var(--fg); }
+  header img { height: 46px; }
+  h1 { margin: 20px 0 0; font-size: clamp(36px, 5vw, 64px); line-height: .95; font-stretch: 80%; font-weight: 900; text-transform: uppercase; letter-spacing: -.02em; }
+  .lede { max-width: 44em; color: var(--mute); margin: 14px 0 0; }
+  .mono { font: 500 12px/1.4 'JetBrains Mono', monospace; letter-spacing: .06em; text-transform: uppercase; color: var(--cyan); }
+  .dirs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 40px 0 64px; }
+  .dir { display: flex; flex-direction: column; border: 1px solid var(--line); background: var(--card); border-radius: 6px; overflow: hidden; }
+  .dir__sw { height: 150px; display: flex; align-items: flex-end; padding: 18px; position: relative; overflow: hidden; }
+  .dir__sw img { position: absolute; right: 10px; bottom: 0; height: 92%; width: auto; }
+  .a .dir__sw { background: repeating-linear-gradient(90deg, #E2E9EA 0 1px, transparent 1px 32px), #F2F5F5; color: #0D1517; }
+  .b .dir__sw { background: radial-gradient(70% 60% at 70% 100%, rgba(63,211,230,.35), transparent 70%), #050E12; color: #fff; }
+  .c .dir__sw { background: radial-gradient(circle at 78% 70%, #fff 0 32%, #DCEFF2 32.5% 33.5%, transparent 34%), #EEF8F9; color: #0F262B; }
+  .dir__name { position: relative; z-index: 2; font-size: 34px; line-height: .9; }
+  .a .dir__name { font: 900 34px/.9 'Archivo'; font-stretch: 78%; text-transform: uppercase; }
+  .b .dir__name { font: 800 42px/.85 'Big Shoulders Display'; text-transform: uppercase; }
+  .c .dir__name { font: 600 32px/.95 'Lexend'; letter-spacing: -.04em; }
+  .dir__body { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .dir__body p { margin: 0; font-size: 15px; color: var(--mute); }
+  .dir ul { margin: 0; padding-left: 18px; font-size: 14px; display: grid; gap: 4px; }
+  .links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 10px; }
+  .links a { padding: 9px 12px; border: 1px solid var(--line); border-radius: 4px; font-size: 13px; font-weight: 700; text-decoration: none; color: var(--fg); }
+  .links a:first-child { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .links a:hover { border-color: var(--cyan); }
+  h2 { font-size: clamp(26px, 3vw, 38px); font-stretch: 85%; font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; margin: 0 0 18px; line-height: 1; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 64px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 9px 8px 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font: 500 11px 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .06em; color: var(--mute); }
+  td:first-child { font: 500 12px 'JetBrains Mono', monospace; color: var(--cyan); white-space: nowrap; }
+  .note { padding: 18px 20px; border-left: 3px solid var(--cyan); background: var(--card); margin: 0 0 16px; font-size: 15px; }
+  .note b { display: block; margin-bottom: 4px; }
+  .kw { display: flex; flex-wrap: wrap; gap: 6px; } .kw span { padding: 5px 9px; border: 1px solid var(--line); border-radius: 3px; font-size: 13px; }
+  @media (max-width: 900px) { .dirs, .two { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="w">
+  <header>
+    <div><img src="shared/img/brand/logo-lockup-cyan.png" alt="GRILLOO — Leader des solutions de nettoyage"><h1>Site catalogue<br>Trois directions</h1>
+      <p class="lede">Trois maquettes navigables (accueil, 3 scènes Hero alternatives, Nos produits, À propos, page gamme, fiche produit) construites sur le contenu réel du catalogue 2024 : vraies photos produits extraites du PDF et détourées, fiches techniques complètes, et neuf photos d’ambiance générées pour le site.</p></div>
+    <span class="mono">Maquettes · novembre 2026</span>
+  </header>
+
+  <section class="dirs">
+    <article class="dir d" style="grid-column:1/-1"><div class="dir__sw" style="background:radial-gradient(70% 90% at 75% 60%,#D3F0F3,#F6FAFB);color:#0B2328"><span class="dir__name" style="font:800 34px/.95 'Plus Jakarta Sans',sans-serif;letter-spacing:-.03em">D — Pro 3D<br><small style="font-size:14px;font-weight:600;color:#0D5560">Nouvelle direction recommandée</small></span><img src="shared/img/clay/ic/sec-sante.png" alt="" style="right:170px;height:86%"><img src="shared/img/cut/g9.png" alt=""></div>
+      <div class="dir__body"><span class="mono">Professionnel · aéré · illustrations 3D douces</span><p>Style B2B moderne : vraies photos des machines, illustrations 3D aux couleurs GRILLOO pour les secteurs, les étapes de choix et les engagements. Méga-menu, recherche de machine instantanée.</p>
+        <div class="links"><a href="d/index.html">Accueil</a><a href="d/produits.html">Nos produits</a><a href="d/produit.html?p=g9">Fiche G9</a><a href="d/apropos.html">À propos de nous</a></div></div></article>
+
+    <article class="dir a"><div class="dir__sw"><span class="dir__name">A — Fiche<br>technique</span><img src="shared/img/cut/g9.png" alt=""></div>
+      <div class="dir__body"><span class="mono">Clair · précis · données d’abord</span><p>Le site comme une fiche technique interactive. Grille de dessin industriel, onglets noirs repris du catalogue, cotes animées sur les machines.</p>
+        <ul><li>Guide de choix : surface + temps → rendement requis → machines adaptées</li><li>Comparateur triable, comparaison de 3 machines</li><li>Découpes en diagonale et triangle de la couverture</li></ul>
+        <div class="links"><a href="a/index.html">Accueil</a><a href="a/heros.html">3 scènes Hero</a><a href="a/produits.html">Nos produits</a><a href="a/apropos.html">À propos</a><a href="a/gamme.html?f=autolaveuses">Gamme</a><a href="a/produit.html?p=g9">Fiche G9</a></div></div></article>
+    <article class="dir b"><div class="dir__sw"><span class="dir__name">B — Raclette</span><img src="shared/img/cut/roboclean-g-plus.png" alt=""></div>
+      <div class="dir__body"><span class="mono">Sombre · cinématographique · immersif</span><p>Un hall de nuit, un sol mouillé, et un seul geste de marque : la raclette incurvée qui passe et laisse le sol propre.</p>
+        <ul><li>Scène au scroll : la raclette nettoie un vrai sol sale (brosser, aspirer, sécher)</li><li>Rail horizontal des 10 familles sur sol réfléchissant</li><li>Démo des zones de sécurité du RoboClean G+ (le curseur = une personne)</li></ul>
+        <div class="links"><a href="b/index.html">Accueil</a><a href="b/heros.html">3 scènes Hero</a><a href="b/produits.html">Nos produits</a><a href="b/apropos.html">À propos</a><a href="b/gamme.html?f=autoportees">Gamme</a><a href="b/produit.html?p=roboclean-g-plus">Fiche RoboClean</a></div></div></article>
+    <article class="dir c"><div class="dir__sw"><span class="dir__name">C — Disque</span><img src="shared/img/cut/m43.png" alt=""></div>
+      <div class="dir__body"><span class="mono">Lumineux · rond · cinétique</span><p>Tout part des formes rondes du logo (les « oo ») et du plateau de brosse : disques, rotations, franges de poils.</p>
+        <ul><li>Cadran rotatif des familles (clic, glisser, auto-rotation)</li><li>Processus réel : rénovation d’un sol en marbre en 7 passes (catalogue p. 46)</li><li>Code rouge des aspirateurs repris du catalogue</li></ul>
+        <div class="links"><a href="c/index.html">Accueil</a><a href="c/heros.html">3 scènes Hero</a><a href="c/produits.html">Nos produits</a><a href="c/apropos.html">À propos</a><a href="c/gamme.html?f=monobrosses">Gamme</a><a href="c/produit.html?p=gs30">Fiche GS30</a></div></div></article>
+  </section>
+
+  <div class="two">
+    <section>
+      <h2>Arborescence — 15 gabarits</h2>
+      <table>
+        <tr><th>#</th><th>Page</th><th>Rôle</th></tr>
+        <tr><td>01</td><td>Accueil</td><td>Orientation : familles, guide, secteurs, devis</td></tr>
+        <tr><td>02</td><td>Catalogue</td><td>Toutes les machines, filtres, comparateur</td></tr>
+        <tr><td>03</td><td>Page famille ×10</td><td>Page SEO par mot-clé (autolaveuse, balayeuse…)</td></tr>
+        <tr><td>04</td><td>Fiche produit ×80</td><td>Fiche technique complète + JSON-LD Product</td></tr>
+        <tr><td>05</td><td>Guide de choix</td><td>Outil surface / temps / sol</td></tr>
+        <tr><td>06</td><td>Comparateur</td><td>Jusqu’à 3 machines côte à côte</td></tr>
+        <tr><td>07</td><td>Secteurs (hub)</td><td>Entrée par lieu d’usage</td></tr>
+        <tr><td>08</td><td>Page secteur ×6</td><td>Santé, logistique, industrie, commerce, hôtellerie, collectivités</td></tr>
+        <tr><td>09</td><td>RoboClean G+</td><td>Page dédiée au robot autonome</td></tr>
+        <tr><td>10</td><td>La marque</td><td>Objectif, 7 engagements</td></tr>
+        <tr><td>11</td><td>Garantie &amp; SAV</td><td>Conditions, réclamation, service client</td></tr>
+        <tr><td>12</td><td>Conseils &amp; guides</td><td>Articles SEO (ex. rénovation du marbre)</td></tr>
+        <tr><td>13</td><td>Demande de devis</td><td>Formulaire qualifié (surface, sol, machine)</td></tr>
+        <tr><td>14</td><td>Contact</td><td>Coordonnées, carte</td></tr>
+        <tr><td>15</td><td>Mentions légales</td><td>Mentions, confidentialité, cookies</td></tr>
+      </table>
+    </section>
+    <section>
+      <h2>Référencement &amp; campagnes</h2>
+      <p class="note"><b>Cible à confirmer</b>Le brief mentionne des « torréfacteurs et importateurs de café vert » : c’est vraisemblablement un copier-coller d’un autre projet. Les maquettes visent les acheteurs de matériel de nettoyage : sociétés de propreté, services généraux et facility managers, logistique, santé, hôtellerie, commerce, collectivités, industrie.</p>
+      <p style="margin:0 0 10px;color:var(--mute);font-size:15px">Une page famille par requête principale, une URL statique par machine (<span class="mono" style="text-transform:none">/autolaveuses/g9</span>), données structurées Product, fil d’Ariane, images détourées en WebP. Requêtes visées :</p>
+      <div class="kw"><span>autolaveuse professionnelle</span><span>autolaveuse autoportée</span><span>robot autolaveuse autonome</span><span>aspirateur eau et poussière</span><span>aspirateur industriel</span><span>aspirateur antidéflagrant ATEX</span><span>monobrosse professionnelle</span><span>polisseuse marbre</span><span>balayeuse industrielle</span><span>balayeuse autoportée</span><span>injecteur extracteur moquette</span><span>souffleur séchage moquette</span><span>nettoyage escalator</span><span>nettoyeur haute pression</span><span>canon à mousse inox</span></div>
+      <p style="margin:16px 0 0;color:var(--mute);font-size:15px">Les campagnes sociales pointent vers les pages famille et le guide de choix, avec le devis comme conversion. Le marché (pays, langue, villes) reste à préciser pour les pages locales.</p>
+    </section>
+  </div>
+
+  <section>
+    <h2>À valider avec GRILLOO</h2>
+    <p class="note"><b>Données catalogue</b>Plusieurs fiches se contredisent (texte et tableau). La liste est dans <a href="shared/data-issues.md">shared/data-issues.md</a> ; le site affiche les valeurs des tableaux techniques.</p>
+    <p class="note"><b>Coordonnées et garantie</b>Adresse, téléphone, e-mail, pays couverts et durées de garantie ne figurent pas dans le catalogue : des emplacements sont prévus, rien n’a été inventé.</p>
+    <p class="note"><b>Visuels</b>Les photos produits viennent du PDF (détourées automatiquement). Les neuf ambiances (lieux, sols, brosse) sont générées et ne montrent aucune machine. Le formulaire de devis n’est pas encore relié.</p>
+  </section>
+</div>
+</body>
+</html>

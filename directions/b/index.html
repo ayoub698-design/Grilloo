@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GRILLOO — Autolaveuses, balayeuses et matériels de nettoyage professionnels</title>
+<meta name="description" content="GRILLOO, leader des solutions de nettoyage : autolaveuses accompagnées et autoportées, robot RoboClean G+, aspirateurs industriels, balayeuses, injecteurs-extracteurs.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/core.css"><link rel="stylesheet" href="b.css"><link rel="stylesheet" href="more.css"><link rel="stylesheet" href="modern.css">
+</head>
+<body>
+<div id="hd"></div>
+<main>
+  <section class="bhx" id="hx"></section>
+  <svg class="squeegee" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" style="background:var(--night)"><path class="fill" d="M0,120 L0,8 Q720,120 1440,8 L1440,120 Z"/><path class="rim" d="M0,8 Q720,120 1440,8"/></svg>
+
+  <section class="pass" id="passage" aria-label="Le passage d’une autolaveuse en trois temps">
+    <div class="pass__sticky">
+      <svg class="pass__svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <mask id="dirt" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="1000"><rect width="1600" height="1000" fill="#fff"/><path id="passed" fill="#000" d=""/></mask>
+          <linearGradient id="sheenG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfeff6" stop-opacity=".35"/><stop offset="1" stop-color="#bfeff6" stop-opacity="0"/></linearGradient>
+          <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <image href="../shared/img/ambiance/sol-propre.jpg" width="1600" height="1000" preserveAspectRatio="xMidYMid slice"/>
+        <image href="../shared/img/ambiance/sol-sale.jpg" width="1600" height="1000" preserveAspectRatio="xMidYMid slice" mask="url(#dirt)"/>
+        <path id="sheen" fill="url(#sheenG)" d=""/>
+        <path id="bead" fill="none" stroke="rgba(230,250,255,.55)" stroke-width="10" filter="url(#soft)" d=""/>
+        <path id="blade" fill="none" stroke="#0B0F11" stroke-width="22" stroke-linecap="round" d=""/>
+        <path id="rim" fill="none" stroke="#3FD3E6" stroke-width="2.5" d=""/>
+      </svg>
+      <div class="pass__shade"></div>
+      <div class="pass__ui">
+        <div class="pass__card">
+          <div class="pass__dots" id="pass-dots"></div>
+          <div class="pass__steps" id="pass-steps"></div>
+          <div class="pass__meter">Passage <span></span><em id="pass-pct" style="font-style:normal">0 %</em></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="rail" id="gammes">
+    <div class="wrap rail__head"><div><span class="kick">10 familles</span><h2 class="disp d-xl" style="margin-top:14px">La gamme</h2></div><p class="lead">Du lavage des sols durs au séchage des moquettes, en passant par la voirie et les escaliers mécaniques.</p></div>
+    <div class="rail__pin" id="rail-pin"><div class="rail__sticky"><div class="rail__track" id="rail-track"></div></div></div>
+  </section>
+  <svg class="squeegee" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" style="background:var(--deep)"><path class="fill" style="fill:var(--night)" d="M0,120 L0,8 Q720,120 1440,8 L1440,120 Z"/><path class="rim" d="M0,8 Q720,120 1440,8"/></svg>
+
+  <section class="robo">
+    <div class="wrap robo__grid">
+      <div>
+        <span class="kick">Autonome et sûre</span>
+        <h2 class="disp d-l" style="margin:14px 0 20px">RoboClean G+</h2>
+        <p class="lead" id="robo-lead"></p>
+        <ol class="robo__list" id="robo-list"></ol>
+        <p style="margin-top:26px"><a class="btn" href="produit.html?p=roboclean-g-plus">Fiche technique</a></p>
+      </div>
+      <div class="robo__plan" id="robo-plan" aria-label="Démonstration : approchez le curseur de la machine pour voir la zone de protection">
+        <canvas aria-hidden="true"></canvas>
+        <div class="robo__status"><i></i><b>Vitesse de travail</b></div>
+        <span class="robo__hint">Approchez le curseur — ou touchez l’écran</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="macro" id="macro">
+    <div class="macro__sticky"><div class="macro__img" aria-hidden="true"></div>
+      <div class="macro__txt"><blockquote><p class="disp d-l" style="margin:0">Polyvalente et robuste, elle restaure la brillance de vos surfaces.</p><cite>Monobrosses GRILLOO — M13/17, M4, M43, MSC8</cite></blockquote></div>
+    </div>
+  </section>
+
+  <section class="sects" id="secteurs">
+    <div class="wrap">
+      <span class="kick">Secteurs</span><h2 class="disp d-xl" style="margin:14px 0 40px">Sur le terrain</h2>
+      <div class="sects__grid">
+        <div><ul class="sects__list" id="sects-list" role="tablist"></ul><p class="sects__note">Machines dont la fiche catalogue cite ce secteur.</p></div>
+        <div><div class="sects__view" id="sects-view"></div><p class="sects__note" id="sects-name"></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bnp" id="nos-produits"></section>
+  <section class="bab" id="a-propos"></section>
+
+  <section class="close">
+    <div class="wrap"><span class="kick">Catalogue 2024</span><h2 class="disp d-xl" style="margin-top:16px">Découvrez l’excellence GRILLOO</h2>
+      <div class="btns"><a class="btn btn--solid" href="#" data-quote>Demander un devis</a><a class="btn" href="../Catalogue-GRILLOO-2024.pdf">Télécharger le PDF</a></div></div>
+  </section>
+</main>
+<div id="ft"></div>
+<script src="../shared/data.js"></script><script src="../shared/core.js"></script><script src="b.js"></script><script src="more.js"></script>
+<script>B.home(); B.homeExtra();</script>
+</body>
+</html>

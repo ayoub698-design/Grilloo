@@ -1,0 +1,58 @@
+/* Direction A — modernisation globale (chargée en dernier sur toutes les pages).
+   Même structure, finitions actuelles : rayons doux, surfaces en verre, ombres profondes, survols animés. */
+:root { --r-s: 8px; --r-m: 14px; --r-l: 22px; --sh: 0 30px 60px -40px rgba(13, 21, 23, .45); --d-radius: 10px; --d-radius-sm: 8px; }
+body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: var(--cyan); color: var(--ink); }
+
+/* header en verre flottant */
+.hd { background: rgba(242, 245, 245, .72); }
+.hd.is-scrolled { box-shadow: 0 12px 30px -24px rgba(13, 21, 23, .45); border-color: transparent; }
+.hd__nav { gap: 2px; padding: 4px; border-radius: 999px; }
+.hd__nav a { border-radius: 999px; transition: background .25s, color .25s; }
+.hd__nav a:hover, .hd__nav a[aria-current] { background: var(--white); }
+.hd__nav a::after { display: none; }
+.hd__nav a[aria-current] { color: var(--cyan-ink); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* boutons */
+.btn { border-radius: 999px; padding: 15px 24px; }
+.btn .arr { display: inline-grid; place-items: center; width: 24px; height: 24px; margin-right: -8px; border-radius: 50%; background: rgba(255, 255, 255, .14); }
+.btn--ghost .arr { background: var(--paper); }
+.tab { border-radius: 6px; }
+
+/* sections & surfaces */
+.sec__head h2, .h-l { letter-spacing: -.035em; }
+.frame, .sector, .np-visual, .robo__img, .cmp__panel, .card__img, .pd__media .stage__plate { border-radius: var(--r-m); }
+.frame { overflow: visible; }
+.frame__img { border-radius: var(--r-m); }
+.frame__ref { border-radius: var(--r-m) 0 var(--r-s) 0; }
+.frame__figs { border-radius: var(--r-s) 0 var(--r-m) 0; overflow: hidden; }
+.sectors { gap: 14px; background: none; border: 0; }
+.sector { border: 1px solid var(--line); transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+.sector:hover { transform: translateY(-6px); box-shadow: var(--sh); }
+.fidx__row::before { border-radius: var(--r-m); inset: 0 -16px; }
+.val { transition: background .3s; border-radius: var(--r-s); }
+.val:hover { background: var(--paper); }
+
+/* grilles de fiches */
+.grid { gap: 14px; background: none; border: 0; }
+.grid > * { outline: 0 !important; }
+.card { border: 1px solid var(--line); border-radius: var(--r-m); overflow: hidden; transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s; }
+.card:hover { transform: translateY(-6px); box-shadow: var(--sh); border-color: var(--ink); }
+.card__cmp { border-radius: 999px; }
+.ftabs a { border-radius: 999px 999px 0 0; }
+.tools select, .switch button, .seg button, .seg label span, .thumbs button, .np-models a, .secpanel__models a, .pick, .pd__thumbs button { border-radius: var(--r-s); }
+.thumbs button { overflow: hidden; }
+.tbl-wrap { border-radius: var(--r-m); border: 1px solid var(--line); border-top: 1px solid var(--ink); background: var(--white); }
+.tray { border-radius: 999px; padding-left: 22px; }
+.tray .btn { border-radius: 999px; }
+.stage__plate { border-radius: var(--r-m); box-shadow: var(--sh); }
+
+/* bandeau d'appel et pied de page flottants */
+.band { margin: 0 var(--gut) clamp(40px, 5vw, 72px); border-radius: var(--r-l); }
+.ft { border-radius: var(--r-l) var(--r-l) 0 0; }
+.ft__soc a { border-radius: 50%; }
+.sec--ink { background: radial-gradient(90% 120% at 80% 0%, #12262B 0%, var(--ink) 60%); }
+
+/* révélations plus douces */
+[data-reveal] { transform: translateY(26px) scale(.985); filter: blur(4px); transition: opacity .9s var(--ease), transform .9s var(--ease), filter .9s var(--ease); }
+[data-reveal].is-in { filter: none; }

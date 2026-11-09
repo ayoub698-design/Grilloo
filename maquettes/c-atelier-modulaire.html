@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GRILLOO — Maquette C · Atelier Modulaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Direction C — bento clair et arrondi, pétrole + jaune sécurité */
+  :root {
+    --bg: #eef3f2;
+    --surface: #ffffff;
+    --petrol: #0d3a42;
+    --teal: #1bb3c9;
+    --teal-text: #0e8496;
+    --teal-pale: #8fdce8;
+    --sky: #cdebef;
+    --safety: #f2c14e;
+    --ink: #0b1f24;
+    --muted: #4b6268;
+    --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
+    --body: 'Figtree', system-ui, sans-serif;
+    --r-xl: 32px; --r-md: 20px;
+    --gutter: max(clamp(16px, 3vw, 40px), env(safe-area-inset-left, 0px));
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--body); -webkit-font-smoothing: antialiased; }
+  a { color: var(--petrol); }
+  :focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+  .page { max-width: 1320px; margin: 0 auto; padding: 20px var(--gutter) 96px; display: flex; flex-direction: column; gap: 16px; }
+  .kicker { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .display { font-family: var(--display); font-weight: 800; letter-spacing: -.03em; }
+
+  /* En-tête pilule */
+  .header { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--surface); border-radius: 999px; padding: 10px 10px 10px 24px; }
+  .logo { font: 800 24px var(--display); color: var(--petrol); text-decoration: none; letter-spacing: -.02em; }
+  .logo span { color: var(--teal); }
+  .nav { display: flex; gap: 4px; font-weight: 600; font-size: 15px; }
+  .nav a { text-decoration: none; padding: 10px 14px; border-radius: 999px; }
+  .nav a:hover { background: var(--bg); }
+  .btn-pill { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 20px; border-radius: 999px; background: var(--petrol); color: #fff; font-weight: 700; font-size: 15px; text-decoration: none; }
+  .btn-pill:hover { background: var(--ink); color: #fff; }
+  .menu-btn { display: none; min-height: 48px; padding: 0 18px; border: 0; border-radius: 999px; background: var(--bg); color: var(--ink); font: 700 15px var(--body); cursor: pointer; }
+
+  /* Hero : sélecteur */
+  .finder { display: flex; flex-wrap: wrap; gap: 16px; }
+  .finder-main { flex: 2 1 620px; min-width: 0; background: var(--petrol); color: #fff; border-radius: var(--r-xl); padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; gap: 28px; }
+  .finder-main .kicker { color: var(--teal-pale); }
+  h1 { margin: 0; font: 800 clamp(38px, 5.4vw, 78px)/.98 var(--display); letter-spacing: -.035em; text-wrap: balance; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); background: transparent; color: #fff; font: 600 15px var(--body); cursor: pointer; transition: background-color .18s, color .18s, border-color .18s; }
+  .chip:hover { border-color: #fff; }
+  .chip[aria-pressed="true"] { background: #fff; color: var(--petrol); border-color: #fff; }
+
+  .recs { flex: 1 1 340px; min-width: 0; background: var(--surface); border-radius: var(--r-xl); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .recs-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .recs-head b { font: 800 22px var(--display); }
+  .recs-head span { font-size: 13px; color: var(--muted); }
+  .rec-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .rec { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 20px; border-radius: var(--r-md); background: var(--bg); color: var(--ink); text-decoration: none; transition: transform .2s; animation: pop .35s ease both; }
+  .rec:hover { transform: translateX(3px); }
+  .rec b { display: block; font: 800 22px var(--display); }
+  .rec small { font-size: 14px; color: var(--muted); }
+  .rec strong { font-size: 15px; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .recs-more { margin-top: auto; font-weight: 700; }
+
+  /* Tuiles */
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .tile { border-radius: var(--r-xl); padding: 28px; min-height: 260px; display: flex; flex-direction: column; justify-content: space-between; gap: 48px; }
+  .tile-safety { background: var(--safety); }
+  .tile-safety b { font: 800 34px/1 var(--display); }
+  .tile-photo { background: var(--sky); border: 1px dashed #7fb8c1; align-items: center; justify-content: center; text-align: center; font-size: 14px; color: #2e4a50; }
+  .tile-white { background: var(--surface); }
+  .tile-white .kicker { color: var(--muted); }
+  .tile-white b { font: 800 64px/1 var(--display); color: var(--petrol); }
+  .tile p { margin: 8px 0 0; font-size: 15px; }
+
+  /* Guide en 7 étapes */
+  .guide { background: var(--surface); border-radius: var(--r-xl); padding: clamp(28px, 4vw, 56px); display: flex; flex-direction: column; gap: 32px; }
+  .guide-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+  h2 { margin: 0; max-width: 16em; font: 800 clamp(28px, 3.4vw, 48px)/1.02 var(--display); letter-spacing: -.03em; text-wrap: balance; }
+  .guide-head p { margin: 0; max-width: 28em; color: var(--muted); }
+  .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; counter-reset: step; }
+  .steps li { counter-increment: step; background: var(--bg); border-radius: var(--r-md); padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .steps li::before { content: counter(step); font: 800 28px var(--display); color: var(--teal-text); }
+  .steps b { font-weight: 700; }
+  .steps span { font-size: 14px; color: var(--muted); }
+  .steps li.final { background: var(--petrol); color: #fff; }
+  .steps li.final::before { color: var(--teal-pale); }
+  .steps li.final span { color: #cfe3e6; }
+
+  .footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; padding: 8px 8px 0; font-size: 14px; color: var(--muted); }
+  .footer b { color: var(--petrol); }
+
+  .mk-switch { position: fixed; z-index: 50; left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(13,58,66,.9); backdrop-filter: blur(8px); font: 600 13px var(--body); }
+  .mk-switch a { color: #d4e7ea; text-decoration: none; padding: 8px 14px; border-radius: 999px; }
+  .mk-switch a[aria-current="page"] { background: #fff; color: var(--petrol); }
+
+  @media (max-width: 860px) {
+    .menu-btn { display: inline-flex; align-items: center; }
+    .header > .btn-pill { display: none; }
+    .nav { display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; z-index: 5; flex-direction: column; padding: 12px; background: var(--surface); border-radius: 24px; box-shadow: 0 18px 40px rgba(11,31,36,.12); }
+    .nav.is-open { display: flex; }
+    .nav a { padding: 14px 16px; font-size: 17px; }
+  }
+  @media (max-width: 480px) {
+    .rec { flex-wrap: wrap; }
+    .rec strong { text-align: left; }
+  }
+  @media (prefers-reduced-motion: reduce) { .rec { animation: none; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="header">
+    <a class="logo" href="#">Grilloo<span>.</span></a>
+    <nav class="nav" id="nav" aria-label="Navigation principale">
+      <a href="#">Catalogue</a>
+      <a href="#finder">Par surface</a>
+      <a href="#guide">Guides</a>
+      <a href="#">Garantie</a>
+    </nav>
+    <a class="btn-pill" href="#">Demander un devis</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </header>
+
+  <main style="display:flex;flex-direction:column;gap:16px">
+    <section class="finder" id="finder" aria-label="Trouver sa machine">
+      <div class="finder-main">
+        <span class="kicker">Sélecteur de machine</span>
+        <h1>Quelle surface devez-vous nettoyer ?</h1>
+        <div class="chips" role="group" aria-label="Type de surface" data-chips></div>
+      </div>
+      <div class="recs" aria-live="polite">
+        <div class="recs-head"><b>Nos recommandations</b><span data-current></span></div>
+        <ul class="rec-list" data-recs></ul>
+        <a class="recs-more" href="#">Voir toute la gamme →</a>
+      </div>
+    </section>
+
+    <section class="tiles" aria-label="Points forts">
+      <div class="tile tile-safety">
+        <span class="kicker">Nouveau</span>
+        <div><b>RoboClean G+</b><p>Autolaveuse autonome, 2 365 m²/h, conforme EN IEC 63327.</p></div>
+      </div>
+      <div class="tile tile-photo">[Photo — monobrosse M4 sur marbre]</div>
+      <div class="tile tile-white">
+        <span class="kicker">Catalogue 2024</span>
+        <div><b>75</b><p>machines réparties en 13 familles, de l'aspirateur 10 L à la balayeuse de voirie.</p></div>
+      </div>
+    </section>
+
+    <section class="guide" id="guide">
+      <div class="guide-head">
+        <h2>Polir un sol en marbre en 7 étapes</h2>
+        <p>Le protocole du catalogue pour les polisseuses GP1800, du meulage initial à la brillance finale.</p>
+      </div>
+      <ol class="steps">
+        <li><b>Meulage initial</b><span>Diamant métallique #16 ou #30 selon la dureté du sol.</span></li>
+        <li><b>Meulage fin</b><span>Diamant métallique #80, #150 puis #300.</span></li>
+        <li><b>Résine #50</b><span>Efface les rayures laissées par le diamant.</span></li>
+        <li><b>Durcisseur</b><span>Gardez le sol humide pendant 2 heures.</span></li>
+        <li><b>Polissage fin</b><span>Résine #150, #300 puis #500.</span></li>
+        <li><b>Super fin</b><span>Résine #1000, #2000 puis #3000.</span></li>
+        <li class="final"><b>Finition</b><span>Crème de polissage, puis brunissoir GP1800 et tampons noirs DT021.</span></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>La puissance du nettoyage entre vos mains.</span>
+    <b>www.grilloo.net</b>
+  </footer>
+</div>
+
+<nav class="mk-switch" aria-label="Changer de maquette">
+  <a href="index.html">Toutes</a>
+  <a href="a-precision-aqua.html">A</a>
+  <a href="b-noir-hydro.html">B</a>
+  <a href="c-atelier-modulaire.html" aria-current="page">C</a>
+</nav>
+
+<script>
+  // Menu mobile
+  (() => {
+    const btn = document.querySelector('.menu-btn');
+    const nav = document.getElementById('nav');
+    btn.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.textContent = open ? 'Fermer' : 'Menu';
+    });
+  })();
+
+  // Sélecteur de machine : données tirées du catalogue GRILLOO 2024
+  (() => {
+    const SURFACES = [
+      { id: 'bureaux', label: 'Bureaux et commerces', recs: [
+        ['G5', 'Autolaveuse accompagnée', '1 700 m²/h'],
+        ['GSB2', 'Aspiro-brosseur', '48 cm de travail'],
+        ['M43', 'Monobrosse', '1 250 W'] ] },
+      { id: 'entrepot', label: 'Entrepôt et logistique', recs: [
+        ['G9', 'Autolaveuse autoportée', '4 500 m²/h'],
+        ['GBE1400A', 'Balayeuse autoportée', '8 800 m²/h'],
+        ['GBE3', 'Balayeuse autotractée', '3 150 m²/h'] ] },
+      { id: 'sante', label: 'Santé et médical', recs: [
+        ['G53', 'Autolaveuse autotractée', '2 200 m²/h'],
+        ['G54', 'Autolaveuse autotractée', '2 500 m²/h'],
+        ['GS-TNE3-E', 'Aspirateur filtre HEPA', '0,5 µm'] ] },
+      { id: 'voirie', label: 'Parkings et voirie', recs: [
+        ['GB3', 'Balayeuse manuelle', '3 800 m²/h'],
+        ['GBE1200', 'Balayeuse avec cabine', '18 000 m²/h'],
+        ['GBE2000', 'Balayeuse de voirie', '36 000 m²/h'] ] },
+      { id: 'moquette', label: 'Moquettes et textiles', recs: [
+        ['GH31', 'Injecteur-extracteur', '495 m²/h'],
+        ['GH46', 'Injecteur-extracteur', '45 cm de travail'],
+        ['GK180', 'Souffleur de séchage', '3 vitesses'] ] },
+      { id: 'escalator', label: 'Escalators', recs: [
+        ['GE33', "Nettoyeur d'escalator", '650 tr/min'],
+        ['GE30', "Nettoyeur d'escalator", '1 000 m²/h'],
+        ['GE30B', 'Nettoyeur sur batterie', '2 200 m²/h'] ] },
+    ];
+
+    const chipsEl = document.querySelector('[data-chips]');
+    const recsEl = document.querySelector('[data-recs]');
+    const currentEl = document.querySelector('[data-current]');
+
+    const chips = SURFACES.map((s) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.textContent = s.label;
+      b.addEventListener('click', () => select(s.id));
+      chipsEl.appendChild(b);
+      return b;
+    });
+
+    function select(id) {
+      const s = SURFACES.find((x) => x.id === id);
+      chips.forEach((c, i) => c.setAttribute('aria-pressed', String(SURFACES[i].id === id)));
+      currentEl.textContent = s.label;
+      recsEl.replaceChildren(...s.recs.map(([model, type, figure], i) => {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.className = 'rec';
+        a.href = '#';
+        a.style.animationDelay = `${i * 60}ms`;
+        const left = document.createElement('span');
+        const b = document.createElement('b'); b.textContent = model;
+        const small = document.createElement('small'); small.textContent = type;
+        left.append(b, small);
+        const strong = document.createElement('strong'); strong.textContent = figure;
+        a.append(left, strong);
+        li.appendChild(a);
+        return li;
+      }));
+    }
+
+    select('entrepot');
+  })();
+</script>
+</body>
+</html>

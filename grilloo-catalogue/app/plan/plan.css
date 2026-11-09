@@ -1,0 +1,150 @@
+/*
+ * Orientation C — « Plan ». CSS classique (pas de @apply / @theme).
+ * Jetons : app/globals.css (--color-pl-*). Révélations pilotées par [data-in] (useReveal).
+ */
+.pl-root {
+  --pl-white: #fff;
+  --pl-paper: #F6F8F8;
+  --pl-line: #DDE5E6;
+  --pl-grid: #EEF2F3;
+  --pl-teal: #0D5560;
+  --pl-cyan: #49B5BF;
+  --pl-grey: #8B999C;
+  --pl-ink: #12262A;
+  --pl-muted: #56686C;
+  --pl-ease: cubic-bezier(.2, .7, .1, 1);
+  font-feature-settings: "ss01" 0, "tnum" 0;
+  overflow-x: clip;
+}
+.pl-root ::selection { background: #CDEBEE; color: var(--pl-ink); }
+.pl-root :focus-visible { outline: 2px solid var(--pl-cyan); outline-offset: 2px; }
+.pl-tnum { font-variant-numeric: tabular-nums; }
+
+/* ---------- Fonds techniques ---------- */
+/* Grille visible à 8 colonnes (filets verticaux) */
+.pl-grid8 {
+  background-image: linear-gradient(to right, var(--pl-line) 1px, transparent 1px);
+  background-size: calc(100% / 8) 100%;
+  background-position: 0 0;
+}
+@media (max-width: 767px) { .pl-grid8 { background-size: calc(100% / 4) 100%; } }
+/* Papier millimétré discret */
+.pl-graph {
+  background-color: var(--pl-paper);
+  background-image:
+    linear-gradient(to right, rgba(13, 85, 96, .07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 85, 96, .07) 1px, transparent 1px),
+    linear-gradient(to right, rgba(13, 85, 96, .035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(13, 85, 96, .035) 1px, transparent 1px);
+  background-size: 64px 64px, 64px 64px, 16px 16px, 16px 16px;
+  background-position: -1px -1px;
+}
+.pl-graph-white { background-color: #fff; }
+/* Hachures de coupe */
+.pl-hatch { background-image: repeating-linear-gradient(135deg, rgba(13, 85, 96, .22) 0 1px, transparent 1px 7px); }
+
+/* Repères d'angle (traits de coupe) */
+.pl-crop { position: absolute; width: 14px; height: 14px; border-color: var(--pl-teal); pointer-events: none; transition: border-color .3s, transform .4s var(--pl-ease); }
+.pl-crop.tl { top: 8px; left: 8px; border-top: 1px solid; border-left: 1px solid; }
+.pl-crop.tr { top: 8px; right: 8px; border-top: 1px solid; border-right: 1px solid; }
+.pl-crop.bl { bottom: 8px; left: 8px; border-bottom: 1px solid; border-left: 1px solid; }
+.pl-crop.br { bottom: 8px; right: 8px; border-bottom: 1px solid; border-right: 1px solid; }
+.pl-plate:hover .pl-crop, .pl-plate:focus-within .pl-crop { border-color: var(--pl-cyan); }
+.pl-plate:hover .pl-crop.tl { transform: translate(-3px, -3px); }
+.pl-plate:hover .pl-crop.tr { transform: translate(3px, -3px); }
+.pl-plate:hover .pl-crop.bl { transform: translate(-3px, 3px); }
+.pl-plate:hover .pl-crop.br { transform: translate(3px, 3px); }
+.pl-plate .pl-cut { transition: transform .7s var(--pl-ease); }
+.pl-plate:hover .pl-cut { transform: translateY(-4px) scale(1.025); }
+
+/* ---------- Lignes de cote ---------- */
+.pl-dim { position: absolute; color: var(--pl-cyan); pointer-events: none; }
+.pl-dim-h { height: 18px; }
+.pl-dim-h .pl-dim-line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: 50% 50%; transition: transform 1.1s var(--pl-ease) .25s; }
+.pl-dim-h .pl-dim-ext { position: absolute; top: -6px; bottom: -6px; width: 1px; background: currentColor; opacity: 0; transition: opacity .4s ease .1s; }
+.pl-dim-h .pl-dim-ext.a { left: 0; } .pl-dim-h .pl-dim-ext.b { right: 0; }
+.pl-dim-h .pl-arrow { position: absolute; top: 50%; width: 9px; height: 7px; margin-top: -3.5px; opacity: 0; transition: opacity .3s ease 1.1s; }
+.pl-dim-h .pl-arrow.a { left: 1px; } .pl-dim-h .pl-arrow.b { right: 1px; transform: scaleX(-1); }
+.pl-dim-v { width: 18px; }
+.pl-dim-v .pl-dim-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; background: currentColor; transform: scaleY(0); transform-origin: 50% 50%; transition: transform 1.1s var(--pl-ease) .35s; }
+.pl-dim-v .pl-dim-ext { position: absolute; left: -6px; right: -6px; height: 1px; background: currentColor; opacity: 0; transition: opacity .4s ease .1s; }
+.pl-dim-v .pl-dim-ext.a { top: 0; } .pl-dim-v .pl-dim-ext.b { bottom: 0; }
+.pl-dim-v .pl-arrow { position: absolute; left: 50%; width: 9px; height: 7px; margin-left: -4.5px; opacity: 0; transition: opacity .3s ease 1.2s; }
+.pl-dim-v .pl-arrow.a { top: 1px; transform: rotate(90deg); } .pl-dim-v .pl-arrow.b { bottom: 1px; transform: rotate(-90deg); }
+.pl-dim .pl-dim-label { position: absolute; white-space: nowrap; color: var(--pl-teal); background: var(--pl-label-bg, #fff); padding: 0 6px; opacity: 0; transition: opacity .5s ease 1.05s, transform .7s var(--pl-ease) 1.05s; }
+.pl-dim-h .pl-dim-label { left: 50%; top: 50%; transform: translate(-50%, -30%); }
+.pl-dim-v .pl-dim-label { top: 50%; left: 50%; writing-mode: vertical-rl; transform: translate(-50%, -50%) rotate(180deg) translateX(4px); padding: 6px 0; }
+[data-in="true"] .pl-dim-line { transform: none; }
+[data-in="true"] .pl-dim-ext, [data-in="true"] .pl-arrow { opacity: 1; }
+[data-in="true"] .pl-dim-h .pl-dim-label { opacity: 1; transform: translate(-50%, -50%); }
+[data-in="true"] .pl-dim-v .pl-dim-label { opacity: 1; transform: translate(-50%, -50%) rotate(180deg); }
+
+/* Petite marque de cote dans les cartes (|<—>|) */
+.pl-mark { display: block; position: relative; height: 9px; color: var(--pl-cyan); }
+.pl-mark::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 1px; background: currentColor; transform-origin: left; transition: transform .8s var(--pl-ease); }
+.pl-mark::after { content: ""; position: absolute; inset: 0; border-left: 1px solid currentColor; border-right: 1px solid currentColor; }
+
+/* ---------- Révélations ---------- */
+/* Balayage horizontal */
+.pl-wipe { clip-path: inset(0 100% 0 0); transition: clip-path 1.1s var(--pl-ease); transition-delay: var(--d, 0ms); }
+[data-in="true"] .pl-wipe, .pl-wipe[data-in="true"] { clip-path: inset(0 0 0 0); }
+/* Montée discrète */
+.pl-rise { opacity: 0; transform: translateY(14px); transition: opacity .8s ease, transform .9s var(--pl-ease); transition-delay: var(--d, 0ms); }
+[data-in="true"] .pl-rise, .pl-rise[data-in="true"] { opacity: 1; transform: none; }
+/* Chiffres qui se posent (pas de comptage) */
+.pl-settle { display: inline-block; opacity: 0; transform: translateY(.35em); filter: blur(2px); transition: opacity .7s ease, transform 1s var(--pl-ease), filter .7s ease; transition-delay: var(--d, 0ms); }
+[data-in="true"] .pl-settle { opacity: 1; transform: none; filter: none; }
+/* Filet qui s'étend */
+.pl-rule { transform: scaleX(0); transform-origin: left; transition: transform 1.2s var(--pl-ease); transition-delay: var(--d, 0ms); }
+[data-in="true"] .pl-rule, .pl-rule[data-in="true"] { transform: none; }
+
+/* Tracés SVG qui se dessinent : pathLength="1" sur chaque tracé */
+.pl-draw .d { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--pl-ease); transition-delay: var(--d, 0ms); }
+.pl-draw .f { fill-opacity: 0; transition: fill-opacity .8s ease; transition-delay: calc(var(--d, 0ms) + 700ms); }
+.pl-draw .o { opacity: 0; transition: opacity .7s ease; transition-delay: var(--d, 0ms); }
+.pl-draw[data-in="true"] .d, [data-in="true"] .pl-draw .d { stroke-dashoffset: 0; }
+.pl-draw[data-in="true"] .f, [data-in="true"] .pl-draw .f { fill-opacity: 1; }
+.pl-draw[data-in="true"] .o, [data-in="true"] .pl-draw .o { opacity: 1; }
+
+/* Coupe d'autolaveuse : écoulements et rotation */
+@keyframes pl-flow { to { stroke-dashoffset: -24; } }
+@keyframes pl-spin { to { transform: rotate(360deg); } }
+@keyframes pl-drip { 0% { transform: translateY(-6px); opacity: 0; } 30% { opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
+[data-in="true"] .pl-flow { animation: pl-flow 1.4s linear infinite; }
+[data-in="true"] .pl-spin { animation: pl-spin 3.2s linear infinite; transform-box: fill-box; transform-origin: center; }
+[data-in="true"] .pl-drip { animation: pl-drip 1.6s ease-in infinite; }
+.pl-step-hl { transition: opacity .35s ease, stroke .35s ease, fill .35s ease; }
+
+/* Sélection (balayage) des liens de navigation */
+.pl-navlink { position: relative; }
+.pl-navlink::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1px; background: var(--pl-teal); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--pl-ease); }
+.pl-navlink:hover::after, .pl-navlink[aria-current="page"]::after { transform: scaleX(1); }
+
+/* Boutons : remplissage en balayage */
+.pl-btn { position: relative; isolation: isolate; overflow: hidden; }
+.pl-btn::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--pl-btn-hover, var(--pl-ink)); transform: scaleX(0); transform-origin: left; transition: transform .45s var(--pl-ease); }
+.pl-btn:hover::before, .pl-btn:focus-visible::before { transform: scaleX(1); }
+.pl-btn .pl-btn-arrow { transition: transform .45s var(--pl-ease); }
+.pl-btn:hover .pl-btn-arrow { transform: translateX(4px); }
+
+/* Défilement horizontal propre (index mobile) */
+.pl-scroll-x { overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.pl-scroll-x::-webkit-scrollbar { display: none; }
+
+/* Comparateur avant / après */
+.pl-ba input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; }
+.pl-ba input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 44px; height: 100vh; background: transparent; cursor: ew-resize; }
+.pl-ba input[type="range"]::-moz-range-thumb { width: 44px; height: 600px; background: transparent; border: 0; cursor: ew-resize; }
+
+/* Dialogue (vue agrandie) */
+.pl-dialog { border: 0; padding: 0; max-width: none; max-height: none; width: 100%; height: 100%; background: transparent; }
+.pl-dialog::backdrop { background: rgba(246, 248, 248, .94); }
+.pl-dialog[open] .pl-dialog-panel { animation: pl-dialog-in .5s var(--pl-ease); }
+@keyframes pl-dialog-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pl-wipe, .pl-rise, .pl-settle, .pl-rule, .pl-draw .d, .pl-draw .f, .pl-draw .o,
+  .pl-dim-line, .pl-dim-ext, .pl-arrow, .pl-dim-label { transition: none !important; }
+  .pl-flow, .pl-spin, .pl-drip { animation: none !important; }
+  .pl-plate .pl-cut, .pl-crop { transition: none !important; }
+}

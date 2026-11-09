@@ -1,0 +1,11 @@
+Déposez ici la vidéo de fond du Hero :
+
+  hero-loop.webm   (VP9, prioritaire, plus léger)
+  hero-loop.mp4    (H.264, compatibilité universelle)
+  hero-poster.jpg  (optionnel : première image, puis renseigner HERO_VIDEO.poster)
+
+Cible : 5 secondes, sans piste audio, 1920 px de large, 30 i/s, moins de 3 Mo.
+Les commandes ffmpeg pour les produire sont dans le README.md à la racine du projet.
+
+Tant que ces fichiers sont absents, le Hero affiche la scène animée en canvas
+(boucle parfaite de 5 s) : le site reste présentable.
